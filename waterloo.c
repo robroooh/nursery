@@ -1,4 +1,4 @@
-// still TLE, need to use better sorting algorithm
+//use quick_sort, thanks whoever wrote the function
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,6 +18,26 @@ void bubble_sort(int list[], int n)
       }
     }
   }
+}
+
+void quick_sort (int *a, int n) {
+    int i, j, p, t;
+    if (n < 2)
+        return;
+    p = a[n / 2];
+    for (i = 0, j = n - 1;; i++, j--) {
+        while (a[i] < p)
+            i++;
+        while (p < a[j])
+            j--;
+        if (i >= j)
+            break;
+        t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    quick_sort(a, i);
+    quick_sort(a + i, n - i);
 }
 
 int main()
@@ -42,8 +62,8 @@ int main()
             scanf("%d",&ms[i]);
         }
 
-        bubble_sort(ns,n);
-        bubble_sort(ms,m);
+        quick_sort(ns,n);
+        quick_sort(ms,m);
 
         int dragonIndex = 0, knightIndex = 0, sum = 0;
         int doom = 0;
